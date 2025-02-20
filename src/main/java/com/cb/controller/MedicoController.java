@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.util.Date;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 import com.cb.model.TblMedico;
 import com.cb.service.IMedicoService;
@@ -34,13 +31,6 @@ public class MedicoController {
         } else {
             doctorList = doctorService.getAllDoctors();  
         }
-        
-        // Convertir fechas a la zona horaria local
-        doctorList.forEach(doctor -> {
-            Date birthDate = doctor.getBirthDate();
-            Date localDate = convertToLocalTime(birthDate, "America/Lima"); // Cambia a tu zona horaria
-            doctor.setBirthDate(localDate);
-        });
 
         model.addAttribute("doctorList", doctorList);
         model.addAttribute("name", firstName); 
@@ -85,10 +75,5 @@ public class MedicoController {
             redirectAttributes.addFlashAttribute("messageType", "danger");
         }
         return "redirect:/views/doctorList";      
-    }
-    
-    public Date convertToLocalTime(Date date, String timeZone) {
-        ZonedDateTime zonedDateTime = date.toInstant().atZone(ZoneId.of(timeZone));
-        return Date.from(zonedDateTime.toInstant());
     }
 }

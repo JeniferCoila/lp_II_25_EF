@@ -74,6 +74,14 @@
         .btn-secondary:hover {
             background-color: #7f8c8d;
         }
+
+
+		.no-doctors {
+		    text-align: center;
+		    color: #666;
+		    font-style: italic;
+		    padding: 20px;
+		}
     </style>
 </head>
 
@@ -109,6 +117,12 @@
                     </tr>
                 </thead>
                 <tbody>
+					<!-- Verifica si la lista de médicos está vacía -->
+                    <tr th:if="${doctorList.isEmpty()}">
+                        <td colspan="8" class="no-doctors">
+                            No hay médicos registrados. ¡Registra uno nuevo!
+                        </td>
+                    </tr>
                     <tr th:each="doctor : ${doctorList}">
                         <td th:text="${doctor.doctorId}"></td>
                         <td th:text="${doctor.firstName}"></td>
