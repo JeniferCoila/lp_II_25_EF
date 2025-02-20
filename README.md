@@ -17,7 +17,7 @@ Este proyecto implementa un sistema CRUD para la gestión de médicos utilizando
 La base de datos utilizada es **MySQL** y debe crearse con el siguiente nombre:
 
 ```
-BDTUAPELLIDO
+bd_coila_lp2_ef
 ```
 
 ### 📋 Estructura de la Tabla `TBL_MEDICO`
