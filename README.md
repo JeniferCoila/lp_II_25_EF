@@ -23,30 +23,7 @@ BDTUAPELLIDO
 ### 📋 Estructura de la Tabla `TBL_MEDICO`
 
 ```sql
-CREATE TABLE TBL_MEDICO (
-    IDMEDICOT3 INT AUTO_INCREMENT PRIMARY KEY,
-    NOMBRET3 VARCHAR(255),
-    APELLIDOT3 VARCHAR(255),
-    EMAILT3 VARCHAR(255),
-    DNIT3 VARCHAR(255),
-    ESTADOCIVILT3 VARCHAR(255),
-    FECHANACIMT3 DATE
-);
-```
-
-## 🛠 Instalación y Configuración
-
-1. **Clonar el repositorio**
-
-   ```sh
-   git clone https://github.com/JeniferCoila/lp_II_25_EF.git
-   ```
-
-2. **Configurar MySQL**
-
-   - Crear la base de datos `bd_coila_lp2_ef`.
-  
-   - -- Crear la base de datos 
+-- Crear la base de datos 
 CREATE DATABASE IF NOT EXISTS bd_coila_lp2_ef;
 USE bd_coila_lp2_ef;
 
@@ -60,6 +37,20 @@ CREATE TABLE IF NOT EXISTS tbl_medico (
     estado_civil VARCHAR(50),
     fecha_nacimiento DATE NOT NULL
 );
+
+```
+
+## 🛠 Instalación y Configuración
+
+1. **Clonar el repositorio**
+
+   ```sh
+   git clone https://github.com/JeniferCoila/lp_II_25_EF.git
+   ```
+
+2. **Configurar MySQL**
+
+   - Crear la base de datos `bd_coila_lp2_ef`.
 
    - Configurar `application.properties`:
 
