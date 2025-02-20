@@ -1,7 +1,7 @@
 # Proyecto: ERP-LIMA S.A.C - Gestión de Médicos
 
 Este proyecto implementa un sistema CRUD para la gestión de médicos utilizando tecnologías como Spring Boot, Maven, Git, GitHub, JPA, JPQL y MySQL.
-[![](https://markdown-videos.deta.dev/youtu.be/ABQHuAsZZcs)](https://youtu.be/ABQHuAsZZcs)
+Presentacion: [https://youtu.be/ABQHuAsZZcs](https://youtu.be/ABQHuAsZZcs)
 ## 📌 Tecnologías Utilizadas
 
 - **Spring Boot** - Framework para desarrollo de aplicaciones en Java.
