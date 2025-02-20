@@ -1,7 +1,6 @@
-package controller;
+package com.cb.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.Date;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
-import model.TblMedico;
-import service.IMedicoService;
+import com.cb.model.TblMedico;
+import com.cb.service.IMedicoService;
 
 @Controller  
 @RequestMapping("/views")
@@ -24,31 +26,38 @@ public class MedicoController {
     private IMedicoService doctorService;
     
     @GetMapping("/doctorList")
-    public String listdoctors(@RequestParam(name = "name", required = false) String name, Model model) {
+    public String listDoctors(@RequestParam(name = "name", required = false) String firstName, Model model) {
         List<TblMedico> doctorList;
 
-        if (name != null && !name.isEmpty()) {
-            doctorList = doctorService.findDoctorsByName(name);
+        if (firstName != null && !firstName.isEmpty()) {
+            doctorList = doctorService.findDoctorsByName(firstName);
         } else {
             doctorList = doctorService.getAllDoctors();  
         }
+        
+        // Convertir fechas a la zona horaria local
+        doctorList.forEach(doctor -> {
+            Date birthDate = doctor.getBirthDate();
+            Date localDate = convertToLocalTime(birthDate, "America/Lima"); // Cambia a tu zona horaria
+            doctor.setBirthDate(localDate);
+        });
 
         model.addAttribute("doctorList", doctorList);
-        model.addAttribute("name", name); 
+        model.addAttribute("name", firstName); 
         return "views/list";  
     }
     
     @GetMapping("/registerDoctor")
     public String registerDoctor(Model model) {
-        TblMedico TblMedico = new TblMedico();
-        model.addAttribute("TblMedico", TblMedico);
+        TblMedico doctor = new TblMedico();
+        model.addAttribute("medico", doctor);
         return "views/modify";  
     }
     
     @PostMapping("/saveDoctor")
-    public String savedoctor(@ModelAttribute TblMedico TblMedico, RedirectAttributes redirectAttributes) {
+    public String saveDoctor(@ModelAttribute TblMedico medico, RedirectAttributes redirectAttributes) {
         try {
-            doctorService.registerDoctor(TblMedico);  
+            doctorService.registerDoctor(medico);  
             redirectAttributes.addFlashAttribute("message", "Médico registrado exitosamente.");
             redirectAttributes.addFlashAttribute("messageType", "success");
         } catch (Exception e) {
@@ -59,14 +68,14 @@ public class MedicoController {
     }
     
     @GetMapping("/editDoctor/{id}")
-    public String edit(@PathVariable("id") Integer doctorId, Model model) {
-        TblMedico TblMedico = doctorService.getDoctorById(doctorId);
-        model.addAttribute("TblMedico", TblMedico);
+    public String editDoctor(@PathVariable("id") Integer doctorId, Model model) {
+        TblMedico doctor = doctorService.getDoctorById(doctorId);
+        model.addAttribute("medico", doctor);
         return "views/modify";  
     }
     
     @GetMapping("/deleteDoctor/{id}")
-    public String delete(@PathVariable("id") Integer doctorId, RedirectAttributes redirectAttributes) {
+    public String deleteDoctor(@PathVariable("id") Integer doctorId, RedirectAttributes redirectAttributes) {
         try {
             doctorService.deleteDoctor(doctorId);  
             redirectAttributes.addFlashAttribute("message", "Médico eliminado correctamente.");
@@ -76,5 +85,10 @@ public class MedicoController {
             redirectAttributes.addFlashAttribute("messageType", "danger");
         }
         return "redirect:/views/doctorList";      
+    }
+    
+    public Date convertToLocalTime(Date date, String timeZone) {
+        ZonedDateTime zonedDateTime = date.toInstant().atZone(ZoneId.of(timeZone));
+        return Date.from(zonedDateTime.toInstant());
     }
 }

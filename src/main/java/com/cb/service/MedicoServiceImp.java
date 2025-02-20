@@ -1,10 +1,10 @@
-package service;
+package com.cb.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import model.TblMedico;
-import repository.IMedicoRepository;
+import com.cb.model.TblMedico;
+import com.cb.repository.IMedicoRepository;
 
 @Service
 public class MedicoServiceImp implements IMedicoService {
@@ -34,6 +34,6 @@ public class MedicoServiceImp implements IMedicoService {
 
     @Override
     public List<TblMedico> findDoctorsByName(String name) {
-        return medicoRepository.findByNombreContainingIgnoreCase(name);
+        return medicoRepository.findByFirstNameContainingIgnoreCase(name);
     }
 }

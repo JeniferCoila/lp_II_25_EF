@@ -1,7 +1,7 @@
-package service;
+package com.cb.service;
 
 import java.util.List;
-import model.TblMedico;
+import com.cb.model.TblMedico;
 
 public interface IMedicoService {
     
@@ -9,5 +9,5 @@ public interface IMedicoService {
     void deleteDoctor(Integer id);
     List<TblMedico> getAllDoctors();
     TblMedico getDoctorById(Integer id);
-    List<TblMedico> findDoctorsByName(String name);
+    List<TblMedico> findDoctorsByName(String firstName);
 }

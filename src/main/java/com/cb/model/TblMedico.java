@@ -1,4 +1,4 @@
-package model;
+package com.cb.model;
 
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +12,7 @@ public class TblMedico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_medico")
-    private Integer id;
+    private Integer doctorId;
 
     @Column(name = "nombre", nullable = false, length = 255)
     private String firstName;
@@ -20,10 +20,10 @@ public class TblMedico {
     @Column(name = "apellido", nullable = false, length = 255)
     private String lastName;
 
-    @Column(name = "email", nullable = false, unique = true, length = 255)
+    @Column(name = "email", nullable = false, length = 255)
     private String email;
 
-    @Column(name = "dni", nullable = false, unique = true, length = 20)
+    @Column(name = "dni", nullable = false, length = 20)
     private String dni;
 
     @Column(name = "estado_civil", length = 50)
@@ -39,8 +39,8 @@ public class TblMedico {
     }
 
     // Constructor con parámetros
-    public TblMedico(Integer id, String firstName, String lastName, String email, String dni, String maritalStatus, Date birthDate) {
-        this.id = id;
+    public TblMedico(Integer doctorId, String firstName, String lastName, String email, String dni, String maritalStatus, Date birthDate) {
+        this.doctorId = doctorId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -50,12 +50,12 @@ public class TblMedico {
     }
 
     // Getters y Setters
-    public Integer getId() {
-        return id;
+    public Integer getDoctorId() {
+        return doctorId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
     }
 
     public String getFirstName() {
